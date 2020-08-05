@@ -1,9 +1,9 @@
 import React from 'react';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { Dimensions, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { COLORS } from '../../../assets/Colors';
+import { INPUT_BIRTHDAY_STATUS } from '../../../constant/InputBirthdayStatus';
+import {inject, observer} from "mobx-react";
 
 // 컴포넌트를 생성 할 때는 constructor -> componentWillMount -> render -> componentDidMount 순으로 진행됩니다.
 
@@ -13,7 +13,11 @@ import { Icon } from 'react-native-elements';
 
 // 이 예제에는 없지만 state가 변경될 떄엔 props 를 받았을 때 와 비슷하지만 shouldComponentUpdate 부터 시작됩니다.
 
-export default class TitleInputTextView extends React.Component {
+const Width = Dimensions.get('window').width;
+const Height = Dimensions.get('window').height;
+@inject('signUpBasicInfoStore')
+@observer
+export default class BirthdayInputView extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -29,45 +33,50 @@ export default class TitleInputTextView extends React.Component {
   // JSON.stringify() 를 쓰면 여러 field 를 편하게 비교 할 수 있답니다.
   render() {
     return (
-      <View style={styles.titleContainer}>
+      <View style={styles.birthdayContainer}>
         <TextInput
-          style={styles.title}
-          maxLength={50}
-          placeholder="ex. 카.책.사. (카페에서 책을 읽는 사람들)"
+          style={styles.birthday}
+          maxLength={30}
+          placeholder="입력 예시 (1990.01.01)"
           autoCorrect={false}
           placeholderTextColor="#ddd"
-          value={this.props.groupingTitle}
+          value={this.props.text}
           onChangeText={
             this.props.onChangeText != null ? (text) => this.props.onChangeText(text) : null
           }
         />
-        <Text style={styles.counter}>{this.props.groupingTitle.length}/50</Text>
+        <Icon
+          size={Width * 0.045}
+          color={
+            this.props.signUpBasicInfoStore.birthdayValidation === INPUT_BIRTHDAY_STATUS.SUCCEED
+              ? COLORS.SUB_COLOR
+              : COLORS.FONT_GRAY
+          }
+          name="check-circle"
+        />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    borderColor: 'black',
-    borderBottomWidth: 1,
+  birthdayContainer: {
+    width: '100%',
     flexDirection: 'row',
-    width: '90%',
-    margin: 10,
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderColor: COLORS.FONT_GRAY,
   },
-
-  title: {
-    flex: 1,
+  // birthdayValid: {
+  //     // height:15,
+  //     // weight:15,
+  // },
+  birthday: {
+    width: '90%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 10,
-    marginLeft: 10,
-    marginBottom: 10,
-    color: Colors.white,
-    fontSize: 15,
-  },
-
-  counter: {
+    // margin:5,
     color: 'black',
+    fontSize: Width * 0.03,
   },
 });

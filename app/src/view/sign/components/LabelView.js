@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { COLORS } from '../../assets/Colors';
+import { Dimensions, StyleSheet, Text, TextInput, View } from 'react-native';
+import { COLORS } from '../../../assets/Colors';
+import { FontSize } from '../../../constant/FontSize';
 
 // 컴포넌트를 생성 할 때는 constructor -> componentWillMount -> render -> componentDidMount 순으로 진행됩니다.
 
@@ -9,8 +10,10 @@ import { COLORS } from '../../assets/Colors';
 // 컴포넌트의 prop이 변경될 때엔 componentWillReceiveProps -> shouldComponentUpdate -> componentWillUpdate-> render -> componentDidUpdate 순으로 진행됩니다.
 
 // 이 예제에는 없지만 state가 변경될 떄엔 props 를 받았을 때 와 비슷하지만 shouldComponentUpdate 부터 시작됩니다.
+const WINDOW_WIDTH = Dimensions.get('window').width;
+const WINDOW_HEIGHT = Dimensions.get('window').height;
 
-export default class PhoneCodeInputTextView extends React.Component {
+export default class LabelView extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -26,38 +29,26 @@ export default class PhoneCodeInputTextView extends React.Component {
   // JSON.stringify() 를 쓰면 여러 field 를 편하게 비교 할 수 있답니다.
   render() {
     return (
-      <View style={styles.phoneCodeInputContainer}>
-        <TextInput
-          style={styles.phoneCode}
-          maxLength={6}
-          autoCorrect={false}
-          clearTextOnFocus
-          textContentType="creditCardNumber"
-          placeholderTextColor={COLORS.FONT_GRAY}
-          placeholder="인증번호를 입력하세요"
-          value={this.props.text}
-          onChangeText={
-            this.props.onChangeText != null ? (text) => this.props.onChangeText(text) : null
-          }
-        />
+      <View style={styles.labelContainer}>
+        <Text style={styles.label}>{this.props.text}</Text>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  phoneCodeInputContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderColor: COLORS.FONT_GRAY,
+  labelContainer: {
+    borderColor: COLORS.MAIN_COLOR,
+    width: '100%',
+    // marginTop: 20,
   },
 
-  phoneCode: {
-    width: '100%',
+  label: {
+    width: '90%',
     alignItems: 'center',
     justifyContent: 'center',
-    color: 'black',
-    fontSize: 12,
+    color: COLORS.FONT_GRAY,
+    fontSize: FontSize.LABEL,
+    // fontWeight: '600',
   },
 });

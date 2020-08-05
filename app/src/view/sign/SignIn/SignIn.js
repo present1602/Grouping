@@ -10,10 +10,10 @@ import {
 } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 import { inject, observer } from 'mobx-react';
-import { COLORS } from '../../assets/Colors';
-import SignInButton from '../entrance/SignInButton';
-import EmailInputTextViewForSignIn from './EmailInputTextViewForSignIn';
-import PasswordInputTextViewForSignIn from './PasswordInputTextViewForSignIn';
+import { COLORS } from '../../../assets/Colors';
+import SignInButton from '../../entrance/SignInButton';
+import EmailInputTextViewForSignIn from '../components/EmailInputTextViewForSignIn';
+import PasswordInputTextViewForSignIn from '../components/PasswordInputTextViewForSignIn';
 
 // 컴포넌트를 생성 할 때는 constructor -> componentWillMount -> render -> componentDidMount 순으로 진행됩니다.
 

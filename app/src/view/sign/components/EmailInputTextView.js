@@ -1,9 +1,8 @@
 import React from 'react';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Icon } from 'react-native-elements';
+import { COLORS } from '../../../assets/Colors';
 
 // 컴포넌트를 생성 할 때는 constructor -> componentWillMount -> render -> componentDidMount 순으로 진행됩니다.
 
@@ -13,7 +12,7 @@ import { Icon } from 'react-native-elements';
 
 // 이 예제에는 없지만 state가 변경될 떄엔 props 를 받았을 때 와 비슷하지만 shouldComponentUpdate 부터 시작됩니다.
 
-export default class TitleInputTextView extends React.Component {
+export default class EmailInputTextView extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -29,45 +28,37 @@ export default class TitleInputTextView extends React.Component {
   // JSON.stringify() 를 쓰면 여러 field 를 편하게 비교 할 수 있답니다.
   render() {
     return (
-      <View style={styles.titleContainer}>
+      <View style={styles.emailContainer}>
         <TextInput
-          style={styles.title}
-          maxLength={50}
-          placeholder="ex. 카.책.사. (카페에서 책을 읽는 사람들)"
+          style={styles.email}
+          maxLength={30}
+          placeholder="email"
           autoCorrect={false}
           placeholderTextColor="#ddd"
-          value={this.props.groupingTitle}
+          value={this.props.text}
           onChangeText={
             this.props.onChangeText != null ? (text) => this.props.onChangeText(text) : null
           }
         />
-        <Text style={styles.counter}>{this.props.groupingTitle.length}/50</Text>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    borderColor: 'black',
-    borderBottomWidth: 1,
-    flexDirection: 'row',
-    width: '90%',
-    margin: 10,
+  emailContainer: {
+    width: '100%',
+    borderRadius: 4,
+    alignItems: 'center',
   },
 
-  title: {
-    flex: 1,
+  email: {
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 10,
-    marginLeft: 10,
-    marginBottom: 10,
-    color: Colors.white,
-    fontSize: 15,
-  },
-
-  counter: {
     color: 'black',
+    fontSize: 12,
+    borderBottomWidth: 1,
+    borderColor: COLORS.FONT_GRAY,
   },
 });

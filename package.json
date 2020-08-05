@@ -23,6 +23,7 @@
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.2",
     "react": "16.9.0",
+    "react-devtools": "^4.8.2",
     "react-native": "0.61.5",
     "react-native-background-timer": "^2.2.0",
     "react-native-cn-richtext-editor": "^2.0.0-rc3",

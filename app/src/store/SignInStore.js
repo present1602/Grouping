@@ -24,7 +24,7 @@ export default class SignInStore {
 
   @observable passwordStatus = INPUT_PASSWORD_STATUS.NONE;
 
-  constructor(userStore: UserStore) {
+  constructor(userStore: UserStore) {s
     this.userStore = userStore;
   }
 

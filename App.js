@@ -30,7 +30,6 @@ class App extends Component {
     return (
       <View style={styles.body}>
         {view}
-         <Main />
       </View>
     );
   }
@@ -39,6 +38,7 @@ class App extends Component {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
+    height:'100%'
   },
 });
 

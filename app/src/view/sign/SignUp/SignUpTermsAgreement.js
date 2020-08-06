@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -23,29 +23,22 @@ import SignErrorMessageView from '../components/SignErrorMessageView';
 
 // 이 예제에는 없지만 state가 변경될 떄엔 props 를 받았을 때 와 비슷하지만 shouldComponentUpdate 부터 시작됩니다.
 
-@inject('signUpTermsAgreementStore')
-@observer
-class SignUpTermsAgreement extends React.Component {
-  constructor(props) {
-    super(props);
+// @inject('signUpTermsAgreementStore')
+// @observer
+
+const SignUpTermsAgreement = (props) => {
+  
+  const signUpNextButtonClicked = () => {
+    console.log("signUpNextButtonClicked clicked ")
+    // props.signUpTermsAgreementStore.completeTermsAgreement();
   }
+  useEffect(() => {  //userEffect : componentDidMount 와 componentDidUpdate 를 합친 형태
+    console.log('SignUpTermsAgreement 호출');
+    console.log(JSON.stringify(props))
+    console.log('===============');
+  }, []);
 
-  // 컴포넌트가 만들어지고 첫 렌더링을 다 마친 후 실행되는 메소드입니다.
-  // 이 안에서 다른 JavaScript 프레임워크를 연동하거나,
-  // setTimeout, setInterval 및 AJAX 처리 등을 넣습니다.
-  componentDidMount() {}
 
-  componentWillUnmount() {}
-
-  async signUpNextButtonClicked() {
-    await this.props.signUpTermsAgreementStore.completeTermsAgreement();
-  }
-
-  // prop 혹은 state 가 변경 되었을 때, 리렌더링을 할지 말지 정하는 메소드입니다.
-  // 위 예제에선 무조건 true 를 반환 하도록 하였지만, 실제로 사용 할 떄는 필요한 비교를 하고 값을 반환하도록 하시길 바랍니다.
-  // 예: return nextProps.id !== this.props.id;
-  // JSON.stringify() 를 쓰면 여러 field 를 편하게 비교 할 수 있답니다.
-  render() {
     return (
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -104,28 +97,27 @@ class SignUpTermsAgreement extends React.Component {
                   // checked={this.state.checked}
                 />
               </View>
-              <SignErrorMessageView text={this.props.signUpTermsAgreementStore.errorMessage} />
+              <SignErrorMessageView 
+                text={props.signUpTermsAgreementStore.errorMessage} 
+                />
             </View>
 
             <View style={styles.bottomContainer}>
               <SignUpNextButton
-                isActive={this.props.signUpTermsAgreementStore.isValidInputData}
+                isActive={props.signUpTermsAgreementStore.isValidInputData}
                 text="확 인"
-                onClick={this.signUpNextButtonClicked.bind(this)}
+                onPress={ () => signUpNextButtonClicked() }
               />
-              <View height={20} />
-              <SignUpNextButton
-                isActive={this.props.signUpTermsAgreementStore.isValidInputData}
-                text="취 소"
-                onClick={this.signUpNextButtonClicked.bind(this)}
-              />
+              
             </View>
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     );
-  }
+  // }
 }
+
+export default inject('friendListStore', 'signUpTermsAgreementStore')(observer(SignUpTermsAgreement))
 
 const styles = StyleSheet.create({
   body: {
@@ -200,5 +192,3 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
 });
-
-export default SignUpTermsAgreement;

@@ -28,9 +28,15 @@ const Stack = createStackNavigator();
 class Index extends React.Component {
   constructor(props) {
     super(props);
+    console.log("in index.js upper===========props=======")
+    console.log(JSON.stringify(props))
+    console.log("============")
   }
 
   componentDidMount() {
+    console.log("in index.js ===========props=======")
+    console.log(JSON.stringify(this.props))
+    console.log("============")
     this.keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       this._keyboardDidShow.bind(this)
